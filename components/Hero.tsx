@@ -5,35 +5,35 @@ import { ChevronDown, Play } from 'lucide-react';
 const Hero: React.FC = () => {
   return (
     <section id="home" className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-espresso">
-      {/* Background with Overlays */}
+      {/* Background with Overlays - High-quality rooftop with people and sunset */}
       <div 
-        className="absolute inset-0 bg-cover bg-center parallax-bg scale-110"
-        style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1560624052-449f5ddf0c31?auto=format&fit=crop&q=80&w=2070)' }}
+        className="absolute inset-0 bg-cover bg-center parallax-bg scale-105 transition-transform duration-[10s] hover:scale-110"
+        style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&q=80&w=2070)' }}
       >
-        <div className="absolute inset-0 bg-espresso/60" />
-        <div className="absolute inset-0 bg-gradient-to-t from-espresso via-transparent to-transparent opacity-80" />
+        <div className="absolute inset-0 bg-espresso/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-espresso via-transparent to-transparent opacity-90" />
       </div>
 
-      {/* Cinematic Particles (CSS simulated) */}
+      {/* Cinematic Particles */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(15)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <div 
             key={i} 
-            className="absolute bg-white/10 rounded-full blur-xl animate-float"
+            className="absolute bg-white/5 rounded-full blur-2xl animate-float"
             style={{
-              width: Math.random() * 200 + 50 + 'px',
-              height: Math.random() * 200 + 50 + 'px',
+              width: Math.random() * 150 + 50 + 'px',
+              height: Math.random() * 150 + 50 + 'px',
               top: Math.random() * 100 + '%',
               left: Math.random() * 100 + '%',
-              animationDelay: i * 0.5 + 's',
-              animationDuration: Math.random() * 5 + 5 + 's'
+              animationDelay: i * 0.3 + 's',
+              animationDuration: Math.random() * 8 + 7 + 's'
             }}
           />
         ))}
       </div>
 
       {/* Content */}
-      <div className="relative text-center px-6 max-w-5xl">
+      <div className="relative text-center px-6 max-w-5xl z-10">
         <p className="text-coral text-sm md:text-base uppercase tracking-[0.8em] mb-8 animate-reveal opacity-0" style={{ animationDelay: '0.2s' }}>
           Welcome to the Horizon
         </p>
@@ -41,8 +41,8 @@ const Hero: React.FC = () => {
           Where Sky Meets <br />
           <span className="italic text-coral">Flavor</span>
         </h1>
-        <p className="text-white/60 text-lg md:text-xl font-light mb-12 max-w-2xl mx-auto tracking-widest leading-relaxed animate-reveal opacity-0" style={{ animationDelay: '0.6s' }}>
-          Elevate your dining experience with unmatched panoramic views and a cinematic rooftop sanctuary.
+        <p className="text-white/70 text-lg md:text-xl font-light mb-12 max-w-2xl mx-auto tracking-widest leading-relaxed animate-reveal opacity-0" style={{ animationDelay: '0.6s' }}>
+          Elevate your senses at Palghar's premier rooftop sanctuary. Experience unmatched panoramic views and culinary excellence.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-reveal opacity-0" style={{ animationDelay: '0.8s' }}>
