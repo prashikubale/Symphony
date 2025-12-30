@@ -12,6 +12,7 @@
             font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
             background-color: #1a1614;
+            color: #e8dfd5;
         }
         h1, h2, h3, h4, .serif {
             font-family: 'Cormorant Garamond', serif;
@@ -45,6 +46,17 @@
         .animate-float {
             animation: sway 6s ease-in-out infinite;
         }
+        #root:empty::before {
+            content: 'Loading Breeze...';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ff7b54;
+            font-family: serif;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+        }
     </style>
     <script>
         tailwind.config = {
@@ -72,6 +84,7 @@
     "react": "https://esm.sh/react@19.0.0",
     "react-dom": "https://esm.sh/react-dom@19.0.0",
     "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+    "react/jsx-runtime": "https://esm.sh/react@19.0.0/jsx-runtime",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react/": "https://esm.sh/react@^19.2.3/"
   }

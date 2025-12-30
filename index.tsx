@@ -1,21 +1,21 @@
 
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 
-const mountApp = () => {
-  // Ensure we only touch the DOM if it exists (SSR/Build safety)
-  if (typeof document !== 'undefined') {
-    const rootElement = document.getElementById('root');
-    if (rootElement) {
-      const root = ReactDOM.createRoot(rootElement);
-      root.render(
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      );
-    }
-  }
+// Global error handler for easier debugging in the browser console
+window.onerror = function(message, source, lineno, colno, error) {
+  console.error('App Crash:', message, 'at', source, lineno, colno);
 };
 
-mountApp();
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  const root = createRoot(rootElement);
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+} else {
+  console.error('Failed to find root element');
+}
