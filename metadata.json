@@ -1,0 +1,7 @@
+{
+  "name": "Breeze - The Rooftop Café",
+  "description": "A luxury rooftop dining experience in Palghar, Mumbai, featuring panoramic views, sunset-inspired design, and an AI-powered menu concierge.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
