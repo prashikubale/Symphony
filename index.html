@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -59,6 +58,9 @@
         }
     </style>
     <script>
+        // Critical: Shim process for the browser to prevent ReferenceErrors
+        window.process = window.process || { env: { API_KEY: '' } };
+        
         tailwind.config = {
             theme: {
                 extend: {
@@ -79,12 +81,12 @@
 <script type="importmap">
 {
   "imports": {
-    "@google/genai": "https://esm.sh/@google/genai@1.34.0",
-    "lucide-react": "https://esm.sh/lucide-react@0.473.0",
     "react": "https://esm.sh/react@19.0.0",
     "react-dom": "https://esm.sh/react-dom@19.0.0",
     "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
     "react/jsx-runtime": "https://esm.sh/react@19.0.0/jsx-runtime",
+    "lucide-react": "https://esm.sh/lucide-react@0.473.0?external=react",
+    "@google/genai": "https://esm.sh/@google/genai@1.34.0",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react/": "https://esm.sh/react@^19.2.3/"
   }
@@ -93,5 +95,6 @@
 </head>
 <body class="text-parchment selection:bg-coral selection:text-white">
     <div id="root"></div>
+    <div id="error-display" style="display:none; position:fixed; bottom:0; left:0; width:100%; background:red; color:white; padding:10px; font-size:12px; z-index:9999; font-family:monospace;"></div>
 </body>
 </html>

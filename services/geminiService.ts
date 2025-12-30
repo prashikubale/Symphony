@@ -1,28 +1,23 @@
-
 import { GoogleGenAI } from "@google/genai";
 import { MenuItem } from "../types";
 
 export const getMenuRecommendation = async (userMood: string, menuItems: MenuItem[]) => {
-  // Safe environment check to prevent crashes if process is undefined
-  let apiKey: string | undefined;
-  try {
-    apiKey = typeof process !== 'undefined' ? process.env.API_KEY : undefined;
-  } catch (e) {
-    apiKey = undefined;
-  }
+  // Use strictly following guidelines, while being safe about the environment
+  const apiKey = typeof process !== 'undefined' ? process.env.API_KEY : undefined;
 
   if (!apiKey) {
-    console.warn("API_KEY is not defined in the environment.");
+    console.warn("Breeze Concierge: API_KEY missing.");
     return "Our Chef recommends the Signature Grilled Sea Bass—it's absolutely perfect for an elevated evening vibe!";
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    // ALWAYS instantiate fresh right before making the call per guidelines
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
     const menuSummary = menuItems.map(item => `${item.name}: ${item.description}`).join('\n');
     
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
-      contents: `A guest is feeling: "${userMood}".`,
+      contents: `A guest is feeling: "${userMood}". Recommend a dish from our menu.`,
       config: {
         systemInstruction: `You are the AI Concierge for "Breeze - The Rooftop Café". 
 Based on our menu below, suggest the perfect dish or drink and explain why it fits their mood. 
@@ -38,7 +33,7 @@ ${menuSummary}`,
 
     return response.text || "The Rooftop Special Grilled Sea Bass is our signature recommendation for you today.";
   } catch (error) {
-    console.error("Gemini API Error:", error);
+    console.error("Breeze Concierge: Gemini API Error", error);
     return "I'd suggest our Rooftop Special Sea Bass—it's perfect for any mood!";
   }
 };
