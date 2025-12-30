@@ -3,16 +3,23 @@ import { GoogleGenAI } from "@google/genai";
 import { MenuItem } from "../types";
 
 export const getMenuRecommendation = async (userMood: string, menuItems: MenuItem[]) => {
-  // Initialize right before making the call as per guidelines
-  const apiKey = process.env.API_KEY;
-  if (!apiKey) {
-    return "I'd suggest our Rooftop Special Sea Bass—it's perfect for any mood!";
+  // Safe environment check to prevent crashes if process is undefined
+  let apiKey: string | undefined;
+  try {
+    apiKey = typeof process !== 'undefined' ? process.env.API_KEY : undefined;
+  } catch (e) {
+    apiKey = undefined;
   }
 
-  const ai = new GoogleGenAI({ apiKey });
-  const menuSummary = menuItems.map(item => `${item.name}: ${item.description}`).join('\n');
-  
+  if (!apiKey) {
+    console.warn("API_KEY is not defined in the environment.");
+    return "Our Chef recommends the Signature Grilled Sea Bass—it's absolutely perfect for an elevated evening vibe!";
+  }
+
   try {
+    const ai = new GoogleGenAI({ apiKey });
+    const menuSummary = menuItems.map(item => `${item.name}: ${item.description}`).join('\n');
+    
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `A guest is feeling: "${userMood}".`,
@@ -29,9 +36,9 @@ ${menuSummary}`,
       },
     });
 
-    return response.text || "I'd suggest our Rooftop Special Sea Bass—it's perfect for any mood!";
+    return response.text || "The Rooftop Special Grilled Sea Bass is our signature recommendation for you today.";
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return "Our Chef recommends the Signature Grilled Sea Bass for a sophisticated evening vibe.";
+    return "I'd suggest our Rooftop Special Sea Bass—it's perfect for any mood!";
   }
 };
