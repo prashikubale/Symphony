@@ -2,17 +2,16 @@ import { GoogleGenAI } from "@google/genai";
 import { MenuItem } from "../types";
 
 export const getMenuRecommendation = async (userMood: string, menuItems: MenuItem[]) => {
-  // Use strictly following guidelines, while being safe about the environment
-  const apiKey = typeof process !== 'undefined' ? process.env.API_KEY : undefined;
+  // Access key directly from environment as per hard requirement
+  const apiKey = process.env.API_KEY;
 
   if (!apiKey) {
-    console.warn("Breeze Concierge: API_KEY missing.");
     return "Our Chef recommends the Signature Grilled Sea Bass—it's absolutely perfect for an elevated evening vibe!";
   }
 
   try {
-    // ALWAYS instantiate fresh right before making the call per guidelines
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
+    // Instantiate exactly as required by guidelines
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const menuSummary = menuItems.map(item => `${item.name}: ${item.description}`).join('\n');
     
     const response = await ai.models.generateContent({
@@ -26,14 +25,13 @@ Keep it elegant, friendly, and brief (max 3 sentences).
 Menu:
 ${menuSummary}`,
         temperature: 0.7,
-        topK: 40,
-        topP: 0.95,
       },
     });
 
+    // Access .text property directly as per guidelines
     return response.text || "The Rooftop Special Grilled Sea Bass is our signature recommendation for you today.";
   } catch (error) {
-    console.error("Breeze Concierge: Gemini API Error", error);
+    console.error("Breeze Concierge Error:", error);
     return "I'd suggest our Rooftop Special Sea Bass—it's perfect for any mood!";
   }
 };
